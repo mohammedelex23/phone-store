@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { increment, decrement, deleteCartItem } from '../../redux/actions/cartActions'
+import { useDispatch } from 'react-redux'
+import { removeFromCart } from '../../redux/actions/productActions';
 
 export default function CartItem({ item, value }) {
 
-    const { id, title, img, price, total, count } = item;
-    const { increment, decrement, removeItem } = value;
+    const { _id, name, image, price, count, total } = item;
+
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+
+    }, [])
+
 
     return (
         <div className="row my-5 my-lg-3 cartItems text-capitalize text-center">
             <div className="col-10 mx-auto col-lg-2">
-                <img src={img} style={{ width: '5rem', height: '5rem' }}
+                <img src={image} style={{ width: '5rem', height: '5rem' }}
                     className="img-fluid" alt="product" />
             </div>
             <div className="col-10 mx-auto col-lg-2">
                 <span className="d-lg-none">product : </span>
-                {title}
+                {name}
             </div>
             <div className="col-10 mx-auto col-lg-2">
                 <span className="d-lg-none">price : </span>
@@ -23,23 +33,30 @@ export default function CartItem({ item, value }) {
                 <div className="d-flex justify-content-center">
                     <div>
                         <span className="btn btn-black mx-1"
-                            onClick={() => decrement(id)}>
-                                -
+                            onClick={() => dispatch(decrement(item))}
+                        >
+                            -
                         </span>
                         <span className="btn btn-black mx-1">
                             {count}
                         </span>
                         <span className="btn btn-black mx-1"
-                            onClick={() => increment(id)}>
-                                +
+                            onClick={() => dispatch(increment(item))}
+                        >
+                            +
                         </span>
                     </div>
                 </div>
             </div>
             {/*  */}
             <div className="col-10 mx-auto col-lg-2">
-                <div className="cart-icon" onClick={() => removeItem(id)}>
-                    <i className="fas fa-trash"></i>
+                <div>
+                    <i className="fas fa-trash cart-icon"
+                        onClick={() => {
+                            dispatch(deleteCartItem(_id))
+                            dispatch(removeFromCart(_id))
+                        }}
+                    ></i>
                 </div>
             </div>
             <div className="col-10 mx-auto col-lg-2">

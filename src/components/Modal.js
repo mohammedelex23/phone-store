@@ -1,67 +1,61 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import { ProductConsumer } from '../context'
-import { ButtonContainer } from './Button'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { emptyCartItems } from '../redux/actions/cartActions'
+import { productEmptyCartItems } from '../redux/actions/productActions'
 
 
+function Modal({ cart }) {
 
-export default class Modal extends Component {
-    render() {
-        return (
-            <ProductConsumer>
-                {value => {
-                    const { modalOpen, closeModal } = value;
-                    const { img, title, price } = value.modalProduct;
-                    if (!modalOpen) {
-                        return null
-                    } else {
-                        return (<ModalContainer>
-                            <div className="container">
-                                <div className="row">
-                                    <div id="modal" className="col-8 col-md-6 col-lg-4
-                                     mx-auto text-center text-capitalize p-5">
-                                        <h5>item addedto the cart</h5>
-                                        <img src={img} className="img-fluid"
-                                            alt="product" />
-                                        <h5>{title}</h5>
-                                        <h5 className="text-muted">price : $ {price}</h5>
-                                        <Link to="/">
-                                            <ButtonContainer
-                                                onClick={() => closeModal()}>
-                                                shopping
-                                            </ButtonContainer>
-                                        </Link>
-                                        <Link to="/cart">
-                                            <ButtonContainer cart
-                                                onClick={() => closeModal()}>
-                                                go to cart
-                                            </ButtonContainer>
-                                        </Link>
+    const dispatch = useDispatch()
+    const { modalIsOpen, loading, error } = cart
+
+    return (
+        !modalIsOpen ? <div></div> :
+            loading ? <div className="modal-container">loading...</div> :
+                error ? <div className="error">{error}</div> :
+                    // var body = document.getElementsByTagName('BODY')[0]
+                    // body.style.overflow = 'hidden'
+
+                    <div className="modal-container">
+                        <div id="modal" tabIndex="-1" role="dialog">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title text-success">Payment succeeded</h5>
+                                    </div>
+                                    <div className="modal-body">
+                                        <p>it will be shipped to you after around two days.</p>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button
+                                            type="button" className="btn btn-secondary" data-dismiss="modal"
+                                            onClick={() => {
+                                                dispatch(emptyCartItems())
+                                                dispatch(productEmptyCartItems())
+                                            }}
+                                        >
+                                            Close
+                                </button>
                                     </div>
                                 </div>
                             </div>
-                        </ModalContainer>
-                        );
-                    }
+                        </div>
+                    </div>
+    )
 
-                }}
-            </ProductConsumer>
-        )
-    }
 }
 
-const ModalContainer = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    #modal {
-        background: var(--mainWhite);   
-    }
-`;
+/* 
+<div className="modal">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5>Payment</h5>
+                </div>
+                <div className="modal-content">
+                    Payment succeeded it will be shipped to you after around two days
+                </div>
+            </div>
+        </div>
+*/
+
+export default Modal

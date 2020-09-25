@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { emptyCartItems, proceedToCheckout } from '../../redux/actions/cartActions'
+import { productEmptyCartItems } from '../../redux/actions/productActions'
 
-export default function CartTotals({ value }) {
+export default function CartTotals({ cart }) {
 
-    const { cartSubTotal, cartTax, cartTotal, clearCart } = value;
-
+    const { tax, cartTotal, subtotal } = cart
+    const dispatch = useDispatch()
     return (
         <React.Fragment>
             <div className="container mb-5">
@@ -15,25 +18,35 @@ export default function CartTotals({ value }) {
                         <Link to="/">
                             <button className="btn btn-outline-danger text-uppercase
                              mb-3 px-5" type="button"
-                                onClick={() => clearCart()}>
+                                onClick={() => {
+                                    dispatch(emptyCartItems())
+                                    dispatch(productEmptyCartItems())
+                                }}
+                            >
                                 clear cart
                              </button>
                         </Link>
                         <h5>
                             <span className="text-title">
                                 subtotal : </span>
-                            <strong>$ {cartSubTotal}</strong>
+                            <strong>$ {subtotal}</strong>
                         </h5>
                         <h5>
                             <span className="text-title">
                                 tax : </span>
-                            <strong>$ {cartTax}</strong>
+                            <strong>$ {tax}</strong>
                         </h5>
                         <h5>
                             <span className="text-title">
                                 total : </span>
                             <strong>$ {cartTotal}</strong>
                         </h5>
+                        <button
+                            className="btn mb-3 px-5 btn-warning text-capitalize"
+                            onClick={() => dispatch(proceedToCheckout())}
+                        >
+                            proceed to checkout
+                         </button>
                     </div>
                 </div>
             </div>

@@ -5,10 +5,18 @@
   --mainDark: #232528;
   --mainYellow: #ffa400;
 }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Oswald', sans-serif !important;
   background-color: var(--mainWhite) !important;
   color: var(--mainDark) !important;
+}
+ul,li {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
 }
 .text-title {
   font-family: 'Permanent Marker', cursive;
@@ -21,6 +29,15 @@ body {
 .text-bright {
   color: var(--lightBlue);
 }
+
+/* Navbar */
+.navbar-brand img , .navbar-brand span{
+  vertical-align: middle;
+}
+.navbar-brand span {
+  font-size: 1.4rem;
+}
+
 .btn-black {
   background: transparent;
   text-transform: capitalize;
@@ -38,8 +55,102 @@ body {
   font-size: 1.2rem;
   color: var(--mainYellow);
 }
+.cart-icon:hover {
+  transform: scale(1.1);
+  color: #ff0000;
+}
 .cartItems {
   border-bottom: .1rem solid #dad1d1;
   margin: 0 !important;
   padding: 1rem 0 !important;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(99, 96, 96, 0.7);
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+#modal {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  outline: none;
+  overflow-y: hidden;
+}
+
+.user-group {
+  display: flex;
+  color: #ffffff;
+}
+
+.user-actions {
+  outline: unset;
+  color: #ffffff !important;
+  border-radius: .5rem;
+  text-transform: capitalize;
+  font-size: unset !important;
+  padding: .2rem .5rem;
+}
+
+.signup {
+  background-color: var(--mainYellow);
+  border: .1rem solid var(--mainYellow);
+}
+.login {
+  background-color: var(--lightBlue);
+  border: .1rem solid var(--lightBlue);
+}
+
+form {
+  width:fit-content !important;
+  margin: 0;
+  margin: 20px auto !important;
+  padding: 3rem 2rem;
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 2px 3px 4px 2px #7a7a7c;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  width: 20rem;
+  
+  padding: .2rem;
+}
+.sign-up {
+  margin: 0 auto;
+  position: absolute;
+  right: 2rem;
+  margin-bottom: 1rem;
+}
+.profile {
+  display: flex;
+  color: white;
+  align-items: center !important;
+}
+.profile div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.profile div p {
+  /* text-overflow: ellipsis; */
+  /* overflow: hidden;  */
+  /* width: 5rem;  */
+  /* height: 1.2em;  */
+  /* white-space: nowrap; */
+  font-size: .8rem;
+} 
+
+.nav-item .profile span, .nav-item .profile i {
+  vertical-align: middle !important;
 }
