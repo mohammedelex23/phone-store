@@ -13,6 +13,7 @@ function Login() {
     const dispatch = useDispatch()
     return (
         <form>
+            <h1 className="mb-3">Log In</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input onChange={(e) => setUsername(e.target.value)} name="username" placeholder="Your Email" />

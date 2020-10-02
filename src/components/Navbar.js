@@ -37,39 +37,34 @@ https://www.iconfinder.com/Makoto_msk */}
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav align-items-sm-center ml-auto">
                     <li className="nav-item mr-2">
-                        {
-                            username ? <Link className="nav-link" to="/cart">
-                                <ButtonContainer>
-                                    <span className="mr-2">
-                                        <i className="fas fa-cart-plus"></i>
-                                    </span>
+                        <Link className="nav-link" to="/cart">
+                            <ButtonContainer>
+                                <span className="mr-2">
+                                    <i className="fas fa-cart-plus"></i>
+                                </span>
                                 my cart
                             </ButtonContainer>
-                            </Link> :
-                                <div></div>
-                        }
+                        </Link>
                     </li>
-                    <li className="nav-item">
-                        {
-                            username ? <div className="profile">
-                                <div>
-                                    <i className="fas fa-user-circle ml-2" style={{ color: "#ffffff", fontSize: "1.5rem" }} aria-hidden="true"></i>
-                                    <p>hi {username.username}</p>
-                                </div>
-                            </div> :
-                                <Link className="nav-link" to="/signup">
-                                    <button className="user-actions signup">Sign Up</button>
-                                </Link>
-                        }
-                    </li>
-                    <li className="nav-item">
-                        {
-                            username ? <div></div> :
-                                <Link className="nav-link" to="/login">
-                                    <button className="user-actions login">Log In</button>
-                                </Link>
-                        }
-                    </li>
+                    {
+                        username ?
+                            <li className="nav-item">
+                                <i className="fa fa-user-circle size-3x" style={{color: 'white', fontSize: '2rem'}}></i>
+                            </li>
+                            :
+                            <React.Fragment>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signup">
+                                        <button className="user-actions signup">Sign Up</button>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">
+                                        <button className="user-actions login">Log In</button>
+                                    </Link>
+                                </li>
+                            </React.Fragment>
+                    }
                 </ul>
             </div>
         </NavWrapper>

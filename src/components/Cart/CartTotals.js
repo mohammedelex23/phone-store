@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { emptyCartItems, proceedToCheckout } from '../../redux/actions/cartActions'
 import { productEmptyCartItems } from '../../redux/actions/productActions'
 
-export default function CartTotals({ cart }) {
+function CartTotals(props) {
 
-    const { tax, cartTotal, subtotal } = cart
+    const { tax, cartTotal, subtotal } = props.cart
     const dispatch = useDispatch()
     return (
         <React.Fragment>
@@ -43,7 +43,7 @@ export default function CartTotals({ cart }) {
                         </h5>
                         <button
                             className="btn mb-3 px-5 btn-warning text-capitalize"
-                            onClick={() => dispatch(proceedToCheckout())}
+                            onClick={() => props.user ? dispatch(proceedToCheckout()) : props.history.push("/login")}
                         >
                             proceed to checkout
                          </button>
@@ -53,3 +53,5 @@ export default function CartTotals({ cart }) {
         </React.Fragment>
     )
 }
+
+export default withRouter(CartTotals)

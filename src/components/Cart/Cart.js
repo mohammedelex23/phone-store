@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import Title from '../Title'
 import CartColumns from './CartColumns'
 import EmptyCart from './EmptyCart'
@@ -9,7 +9,7 @@ import { getCartItems } from '../../redux/actions/cartActions'
 import Modal from '../Modal'
 import localStorage from 'localStorage'
 
-function Cart(props) {
+function Cart() {
 
     const user = JSON.parse(localStorage.getItem('user'))
 
@@ -17,17 +17,11 @@ function Cart(props) {
     const { cart } = cartReducer;
     const dispatch = useDispatch()
 
-    const initFetch = useCallback(() => {
-        dispatch(getCartItems())
-    }, [dispatch])
+
 
     useEffect(() => {
-        if (user) {
-            initFetch()
-        } else {
-            props.history.push("/login")
-        }
-    }, [initFetch])
+        dispatch(getCartItems())
+    }, [])
 
     if (cart.cartItems.length === 0) {
         return <EmptyCart />
@@ -38,7 +32,7 @@ function Cart(props) {
                     <Title name="your" title="cart" />
                     <CartColumns />
                     <CartList cart={cart} />
-                    <CartTotals cart={cart} />
+                    <CartTotals cart={cart} user={user} />
                     <Modal cart={cart} />
                 </React.Fragment>
             </section>

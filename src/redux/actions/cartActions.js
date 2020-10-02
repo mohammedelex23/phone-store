@@ -117,11 +117,11 @@ const proceedToCheckout = () => (dispatch) => {
     const { cartItems, cartTotal } = JSON.parse(sessionStorage.getItem('cart'))
     let products = []
     cartItems.map(item => {
-        let obj = new Object()
+        let obj = {}
         obj.name = item.name
         obj.price = item.price
         obj.count = item.count
-        products.push(obj)
+        return products.push(obj)
     })
     const user = JSON.parse(localStorage.getItem('user'))
     console.log('proceedToCheckout', user)
